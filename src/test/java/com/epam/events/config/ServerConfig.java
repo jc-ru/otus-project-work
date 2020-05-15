@@ -10,7 +10,6 @@ public interface ServerConfig extends Config {
     @DefaultValue("https://events.epam.com")
     String getBaseUriProperties();
 
-
     @Key("ui.testing.waiting.time")
     @DefaultValue("10")
     int getWaitingTimeProperties();
@@ -19,6 +18,12 @@ public interface ServerConfig extends Config {
     @DefaultValue("4")
     int getImplicitlyWaitingTimeProperties();
 
+    @Key("ui.testing.login")
+    @DefaultValue("test")
+    String getLoginProperties();
 
+    @Key("ui.testing.password")
+    @DefaultValue("test")
+    String getPasswordProperties();
 
 }
