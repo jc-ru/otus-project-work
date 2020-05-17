@@ -22,6 +22,14 @@ public class DriversManager {
     public static WebDriver driver;
 
     public static WebDriver getDriver() {
+        if(driver == null) {
+            return getDriverInit();
+        } else {
+            return driver;
+        }
+    }
+
+    public static WebDriver getDriverInit() {
 
         String browserName = getParameter().toLowerCase();
         switch (browserName) {

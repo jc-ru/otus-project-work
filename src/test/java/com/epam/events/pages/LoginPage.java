@@ -15,7 +15,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class LoginPage {
     public static ServerConfig cfg = ConfigFactory.create(ServerConfig.class);
-    final public static Logger logger = LogManager.getLogger(DriversManager.class);
+    final private static Logger logger = LogManager.getLogger(LoginPage.class);
 
     WebDriver driver;
     WebDriverWait wait;

@@ -1,45 +1,43 @@
-package com.epam.events.pages.sections;
+package com.epam.events.pages;
 
 import com.epam.events.config.ServerConfig;
 import com.epam.events.utils.DriversManager;
 import org.aeonbits.owner.ConfigFactory;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-public class NavigateSection {
+import java.util.List;
+
+public class EventsPage {
+
     public static ServerConfig cfg = ConfigFactory.create(ServerConfig.class);
-    final private static Logger logger = LogManager.getLogger(NavigateSection.class);
+    final public static Logger logger = LogManager.getLogger(EventsPage.class);
 
     WebDriver driver;
     WebDriverWait wait;
 
-    @FindBy(xpath = "//a[@href='/events']")
-    private WebElement eventsBtn;
+    // Счетчик событий
+    @FindBy(xpath = "//span[contains(text(), 'Upcoming Events')]/following-sibling::span[contains(@class, 'evnt-tab-counter')]")
+    public static WebElement counterEvents;
 
-    @FindBy(xpath = "//a[@href='/talks']")
-    private WebElement talksLibraryBtn;
+    // Карточки событий
+    @FindBy(xpath = "//div[contains(@class, 'evnt-event-card')]")
+    public static List<WebElement> cardsEvents;
 
-    public NavigateSection(WebDriver driver, WebDriverWait wait) {
+    public EventsPage(WebDriver driver, WebDriverWait wait) {
         this.driver = driver;
         this.wait = wait;
         PageFactory.initElements(driver, this);
     }
 
-    public NavigateSection clickEventsBtn() {
-        eventsBtn.click();
-
-        PageFactory.initElements(driver, this);
-        return this;
-    }
-
-    public NavigateSection clickTalksLibraryBtn() {
-        talksLibraryBtn.click();
+    // url Events Page
+    public EventsPage open() {
+        driver.get(cfg.getBaseUriProperties() + "/events");
 
         PageFactory.initElements(driver, this);
         return this;
