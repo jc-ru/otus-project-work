@@ -133,7 +133,7 @@ public class EventsSteps {
         Assert.assertNotNull(avatarSpeaker);
     }
 
-    // Проверка всех дат событий, на актуальность даты
+    // Проверка всех дат событий, на актуальность даты (не в прошлом и не на 7 дней больше от текущей даты)
     public static void assertNotPastDateEvent() {
         List<WebElement> cards = datesEvents;
         for (int counter = 0; counter < cards.size(); counter++) {
@@ -142,6 +142,9 @@ public class EventsSteps {
             Date datePars = WorkWithDate.stringToDate(dateStr);
             if(datePars.before(new Date())) {
                 logger.error("Дата события {} находится в прошлом", dateStr);
+                Assert.fail();
+            } else if(datePars.after(WorkWithDate.stringToDate(WorkWithDate.getDateBeforeOneWeek()))) {
+                logger.error("Дата события {} находится на 7 дней позже текущей даты", dateStr);
                 Assert.fail();
             }
         }
