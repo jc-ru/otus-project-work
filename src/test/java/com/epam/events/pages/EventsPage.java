@@ -29,6 +29,39 @@ public class EventsPage {
     @FindBy(xpath = "//div[contains(@class, 'evnt-event-card')]")
     public static List<WebElement> cardsEvents;
 
+    // Кнопка Upcoming Events
+    @FindBy(xpath = "//span[contains(text(), 'Upcoming Events')]/parent::a[contains(@class, 'evnt-tab-link')]")
+    public static WebElement upcomingEventsBtn;
+
+    // Заголовок NEXT WEEK
+    @FindBy(xpath = "//h3[contains(text(), 'Next week')]")
+    public static WebElement titleNextWeek;
+
+    // Место проведения события (в карточке)
+    @FindBy(xpath = "//p[contains(@class, 'online')]/span")
+    public static WebElement locationEvent;
+
+    // Язык события (в карточке)
+    @FindBy(xpath = "//p[contains(@class, 'language')]/span")
+    public static WebElement langEvent;
+
+    // Наименование события (в карточке)
+    @FindBy(xpath = "//div[contains(@class, 'evnt-event-name')]/h1/span")
+    public static WebElement nameEvent;
+
+    // Дата события (в карточке)
+    @FindBy(xpath = "//div[contains(@class, 'evnt-dates-cell')]/p/span[contains(@class, 'date')]")
+    public static WebElement dateEvent;
+
+    // Тип регистрации события (в карточке)
+    @FindBy(xpath = "//div[contains(@class, 'evnt-dates-cell')]/p/span[contains(@class, 'status')]")
+    public static WebElement regEvent;
+
+    // Аватарка спикера события (в карточке)
+    @FindBy(xpath = "//div[contains(@class, 'evnt-photo-wrapper')]/img")
+    public static WebElement speakerEvent;
+
+
     public EventsPage(WebDriver driver, WebDriverWait wait) {
         this.driver = driver;
         this.wait = wait;

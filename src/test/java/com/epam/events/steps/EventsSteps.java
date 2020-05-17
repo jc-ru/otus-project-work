@@ -5,19 +5,22 @@ import com.epam.events.tests.Events;
 import com.epam.events.utils.DriversManager;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import static com.epam.events.pages.EventsPage.*;
 
 public class EventsSteps {
     final private static Logger logger = LogManager.getLogger(EventsSteps.class);
-//    private WebDriver driver = DriversManager.getDriver();
-//    private WebDriverWait wait = DriversManager.getDriverWait();
+    private static WebDriver driver = DriversManager.getDriver();
+    private static WebDriverWait wait = DriversManager.getDriverWait();
 
     // Получить значение счетчика событий
     public static Integer getCounterEvents() {
@@ -41,6 +44,90 @@ public class EventsSteps {
             logger.error(ex.getMessage());
             Assert.fail();
         }
+    }
+
+    // клик по кнопке Upcoming Events
+    public static void clickUpcomingEventsBtn() {
+        upcomingEventsBtn.click();
+        wait.until(ExpectedConditions.visibilityOf(titleNextWeek));
+    }
+    
+    // проверка наличия местопроведения в карточке события
+    public static void assertLocationEvent() {
+        String locationText;
+        try {
+            locationText = locationEvent.getText();
+            logger.debug("Место проведения события: {}", locationText);
+        } catch (NoSuchElementException ex) {
+            logger.error("Элемент местопроведения события не найден");
+            locationText = "";
+        }
+        Assert.assertNotEquals(locationText.trim(), "");
+    }
+
+    //  проверка наличия языка в карточке события
+    public static void assertLanguageEvent() {
+        String langText;
+        try {
+            langText = langEvent.getText();
+            logger.debug("Язык события: {}", langText);
+        } catch (NoSuchElementException ex) {
+            logger.error("Элемент указания языка события не найден");
+            langText = "";
+        }
+        Assert.assertNotEquals(langText.trim(), "");
+    }
+
+    // проверка на наличие наимнования события
+    public static void assertNameEvent() {
+        String nameEventText;
+        try {
+            nameEventText = nameEvent.getText();
+            logger.debug("Наименование события: {}", nameEventText);
+        } catch (NoSuchElementException ex) {
+            logger.error("Элемент наименования события не найден");
+            nameEventText = "";
+        }
+        Assert.assertNotEquals(nameEventText.trim(), "");
+    }
+
+    // проверка на наличие даты события
+    public static void assertDateEvent() {
+        String dateEventText;
+        try {
+            dateEventText = dateEvent.getText();
+            logger.debug("Дата события: {}", dateEventText);
+        } catch (NoSuchElementException ex) {
+            logger.error("Элемент даты события не найден");
+            dateEventText = "";
+        }
+        Assert.assertNotEquals(dateEventText.trim(), "");
+    }
+
+    // проверка на наличие типа регистрации события
+    public static void assertRegistrationEvent() {
+        String regEventText;
+        try {
+            regEventText = regEvent.getText();
+            logger.debug("Тип регистрации события: {}", regEventText);
+        } catch (NoSuchElementException ex) {
+            logger.error("Элемент типа регистрации события не найден");
+            regEventText = "";
+        }
+        Assert.assertNotEquals(regEventText.trim(), "");
+    }
+
+    // проверка на наличие спикера события
+    public static void assertSpeakerEvent() {
+        WebElement avatarSpeaker;
+        try {
+            avatarSpeaker = speakerEvent;
+            logger.debug("url аватара спикера: {}", avatarSpeaker.getAttribute("src"));
+        } catch (NoSuchElementException ex) {
+            logger.error("Спикер события не обнаружен");
+            avatarSpeaker = null;
+        }
+        Assert.assertNotNull(avatarSpeaker);
     }
 
 }
