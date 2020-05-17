@@ -37,4 +37,18 @@ public class Events extends BaseConfigurationTest {
         EventsSteps.assertNotPastDateEvent();
     }
 
+    @Test
+    public static void viewPastEventsInCanada() {
+        mainPage.open();
+        navigateSection.clickEventsBtn();
+        EventsSteps.clickUpcomingEventsBtn();
+        EventsSteps.clickPastEventsBtn();
+        EventsSteps.clickLocationBtn();
+        EventsSteps.clickCheckboxLocation("Canada");
+        EventsSteps.assertCounterPastEventsAndCountCards();
+        EventsSteps.assertPastDateEvent();
+    }
+
+
+
 }

@@ -25,6 +25,10 @@ public class EventsPage {
     @FindBy(xpath = "//span[contains(text(), 'Upcoming Events')]/following-sibling::span[contains(@class, 'evnt-tab-counter')]")
     public static WebElement counterEvents;
 
+    // Счетчик прошедших событий
+    @FindBy(xpath = "//span[contains(text(), 'Past Events')]/following-sibling::span[contains(@class, 'evnt-tab-counter')]")
+    public static WebElement counterPastEvents;
+
     // Карточки событий
     @FindBy(xpath = "//div[contains(@class, 'evnt-event-card')]")
     public static List<WebElement> cardsEvents;
@@ -57,6 +61,10 @@ public class EventsPage {
     @FindBy(xpath = "//h3[contains(text(), 'Next week')]/following-sibling::div[contains(@class, 'evnt-events-row')]/descendant::p/span[contains(@class, 'date')]")
     public static List<WebElement> datesEvents;
 
+    // Даты событий (в All events)
+    @FindBy(xpath = "//h3[contains(text(), 'All Events')]/following-sibling::div[contains(@class, 'evnt-events-row')]/descendant::p/span[contains(@class, 'date')]")
+    public static List<WebElement> allDatesEvents;
+
     // Тип регистрации события (в карточке)
     @FindBy(xpath = "//div[contains(@class, 'evnt-dates-cell')]/p/span[contains(@class, 'status')]")
     public static WebElement regEvent;
@@ -65,6 +73,17 @@ public class EventsPage {
     @FindBy(xpath = "//div[contains(@class, 'evnt-photo-wrapper')]/img")
     public static WebElement speakerEvent;
 
+    // Кнопка Past Events
+    @FindBy(xpath = "//span[contains(text(), 'Past Events')]/parent::a[contains(@class, 'evnt-tab-link')]")
+    public static WebElement pastEventsBtn;
+
+    // Кнопка Location в фильтрах
+    @FindBy(id = "filter_location")
+    public static WebElement locationBtn;
+
+    // Заголовок результата поиска
+    @FindBy(xpath = "//p[contains(text(), 'results found for')]")
+    public static WebElement titleSearchFilter;
 
     public EventsPage(WebDriver driver, WebDriverWait wait) {
         this.driver = driver;

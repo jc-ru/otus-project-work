@@ -30,6 +30,11 @@ public class EventsSteps {
         return Integer.parseInt(counterEvents.getText());
     }
 
+    // Получить значение счетчика прошедших событий
+    public static Integer getCounterPastEvents() {
+        return Integer.parseInt(counterPastEvents.getText());
+    }
+
     // Получить кол-во карточек событий
     public static Integer getSizeCardsEvents() {
         List<WebElement> cards = cardsEvents;
@@ -54,7 +59,13 @@ public class EventsSteps {
         upcomingEventsBtn.click();
         wait.until(ExpectedConditions.visibilityOf(titleNextWeek));
     }
-    
+
+    // клик по кнопке Past Events
+    public static void clickPastEventsBtn() {
+        pastEventsBtn.click();
+    }
+
+
     // проверка наличия местопроведения в карточке события
     public static void assertLocationEvent() {
         String locationText;
@@ -148,9 +159,47 @@ public class EventsSteps {
                 Assert.fail();
             }
         }
+    }
 
+    // клик по кнопке LocationBtn
+    public static void clickLocationBtn() {
+        locationBtn.click();
+    }
 
+    // клик по чекбоксу в фильтрах Location
+    public static void clickCheckboxLocation(String location) {
+        driver.findElement(By.xpath("//label[contains(text(), '" + location + "')]")).click();
+        wait.until(ExpectedConditions.visibilityOf(titleSearchFilter));
+    }
 
+    // Проверить счетчик прошедших событий с кол-вом карточек событий
+    public static void assertCounterPastEventsAndCountCards() {
+        int countEvents = EventsSteps.getCounterPastEvents();
+        int countCardsEvents = EventsSteps.getSizeCardsEvents();
+        try {
+            Assert.assertEquals(countEvents, countCardsEvents);
+        } catch (AssertionError ex) {
+            logger.error("Счетчик событий не соответствует кол-ву карточек событий. Счетчик = {}, Карточки = {}", countEvents, countCardsEvents);
+            logger.error(ex.getMessage());
+            Assert.fail();
+        }
+    }
+
+    // Проверка всех дат событий, что они в прошедшем времени
+    public static void assertPastDateEvent() {
+        List<WebElement> cards = allDatesEvents;
+        for (int counter = 0; counter < cards.size(); counter++) {
+            String dateStr = cards.get(counter).getText();
+            logger.debug("Получена дата события: {}", dateStr);
+            Date datePars = WorkWithDate.stringToDate(dateStr);
+            if(datePars.after(new Date())) {
+                logger.error("Дата события {} находится в будущем", dateStr);
+                Assert.fail();
+            } else if(datePars.equals(WorkWithDate.stringToDate(WorkWithDate.getDateBeforeOneWeek()))) {
+                logger.error("Дата события {} находится в настоящем", dateStr);
+                Assert.fail();
+            }
+        }
     }
 
 }
