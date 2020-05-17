@@ -3,6 +3,7 @@ package com.epam.events.steps;
 import com.epam.events.pages.EventsPage;
 import com.epam.events.tests.Events;
 import com.epam.events.utils.DriversManager;
+import com.epam.helpers.WorkWithDate;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.By;
@@ -12,6 +13,8 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 
+import java.text.ParseException;
+import java.util.Date;
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -128,6 +131,23 @@ public class EventsSteps {
             avatarSpeaker = null;
         }
         Assert.assertNotNull(avatarSpeaker);
+    }
+
+    // Проверка всех дат событий, на актуальность даты
+    public static void assertNotPastDateEvent() {
+        List<WebElement> cards = datesEvents;
+        for (int counter = 0; counter < cards.size(); counter++) {
+            String dateStr = cards.get(counter).getText();
+            logger.debug("Получена дата события: {}", dateStr);
+            Date datePars = WorkWithDate.stringToDate(dateStr);
+            if(datePars.before(new Date())) {
+                logger.error("Дата события {} находится в прошлом", dateStr);
+                Assert.fail();
+            }
+        }
+
+
+
     }
 
 }

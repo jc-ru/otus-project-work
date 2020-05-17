@@ -29,4 +29,12 @@ public class Events extends BaseConfigurationTest {
         EventsSteps.assertSpeakerEvent();
     }
 
+    @Test
+    public static void eventsDateValidation() {
+        mainPage.open();
+        navigateSection.clickEventsBtn();
+        EventsSteps.clickUpcomingEventsBtn();
+        EventsSteps.assertNotPastDateEvent();
+    }
+
 }

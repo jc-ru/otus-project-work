@@ -53,6 +53,10 @@ public class EventsPage {
     @FindBy(xpath = "//div[contains(@class, 'evnt-dates-cell')]/p/span[contains(@class, 'date')]")
     public static WebElement dateEvent;
 
+    // Даты событий (в карточке)
+    @FindBy(xpath = "//div[contains(@class, 'evnt-dates-cell')]/p/span[contains(@class, 'date')]")
+    public static List<WebElement> datesEvents;
+
     // Тип регистрации события (в карточке)
     @FindBy(xpath = "//div[contains(@class, 'evnt-dates-cell')]/p/span[contains(@class, 'status')]")
     public static WebElement regEvent;
