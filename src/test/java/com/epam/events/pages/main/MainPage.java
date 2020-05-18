@@ -1,7 +1,6 @@
-package com.epam.events.pages;
+package com.epam.events.pages.main;
 
 import com.epam.events.config.ServerConfig;
-import com.epam.events.utils.DriversManager;
 import org.aeonbits.owner.ConfigFactory;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

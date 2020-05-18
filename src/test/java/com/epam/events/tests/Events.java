@@ -1,6 +1,7 @@
 package com.epam.events.tests;
 
-import com.epam.events.steps.EventsSteps;
+import com.epam.events.steps.events.EventCardSteps;
+import com.epam.events.steps.events.EventsSteps;
 import com.epam.events.utils.BaseConfigurationTest;
 import org.testng.annotations.Test;
 
@@ -41,12 +42,22 @@ public class Events extends BaseConfigurationTest {
     public static void viewPastEventsInCanada() {
         mainPage.open();
         navigateSection.clickEventsBtn();
-        EventsSteps.clickUpcomingEventsBtn();
         EventsSteps.clickPastEventsBtn();
-        EventsSteps.clickLocationBtn();
-        EventsSteps.clickCheckboxLocation("Canada");
+        EventsSteps.addFilterLocation("Canada");
         EventsSteps.assertCounterPastEventsAndCountCards();
         EventsSteps.assertPastDateEvent();
+    }
+
+    @Test
+    public static void viewEventDetails() {
+        mainPage.open();
+        navigateSection.clickEventsBtn();
+        EventsSteps.clickUpcomingEventsBtn();
+        EventsSteps.clickEventCard();
+        EventCardSteps.assertRegBtnEvent();
+        EventCardSteps.assertDateEvent();
+        EventCardSteps.assertLocationEvent();
+        EventCardSteps.assertNameEvent();
     }
 
 

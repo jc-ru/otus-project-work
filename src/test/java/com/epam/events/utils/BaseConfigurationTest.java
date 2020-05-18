@@ -1,9 +1,10 @@
 package com.epam.events.utils;
 
 import com.epam.events.config.ServerConfig;
-import com.epam.events.pages.EventsPage;
-import com.epam.events.pages.MainPage;
-import com.epam.events.pages.sections.NavigateSection;
+import com.epam.events.pages.events.CardEventPage;
+import com.epam.events.pages.events.EventsPage;
+import com.epam.events.pages.main.MainPage;
+import com.epam.events.pages.main.sections.NavigateSection;
 import org.aeonbits.owner.ConfigFactory;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -22,14 +23,17 @@ public class BaseConfigurationTest {
     public static MainPage mainPage;
     public static NavigateSection navigateSection;
     public static EventsPage eventsPage;
+    public static CardEventPage cardEventPage;
 
     @BeforeSuite
     public void setupSuite() {
         driver = DriversManager.getDriver();
         wait = DriversManager.getDriverWait();
+
         mainPage = new MainPage(driver, wait);
         navigateSection = new NavigateSection(driver, wait);
         eventsPage = new EventsPage(driver, wait);
+        cardEventPage = new CardEventPage(driver, wait);
 
     }
 

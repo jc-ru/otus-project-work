@@ -1,29 +1,28 @@
-package com.epam.events.steps;
+package com.epam.events.steps.events;
 
-import com.epam.events.pages.EventsPage;
-import com.epam.events.tests.Events;
+import com.epam.events.pages.events.EventsPage;
 import com.epam.events.utils.DriversManager;
 import com.epam.helpers.WorkWithDate;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.openqa.selenium.By;
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 
-import java.text.ParseException;
 import java.util.Date;
 import java.util.List;
 import java.util.NoSuchElementException;
 
-import static com.epam.events.pages.EventsPage.*;
+import static com.epam.events.pages.events.EventsPage.*;
+
 
 public class EventsSteps {
     final private static Logger logger = LogManager.getLogger(EventsSteps.class);
     private static WebDriver driver = DriversManager.getDriver();
     private static WebDriverWait wait = DriversManager.getDriverWait();
+    private static EventsPage eventsPage;
 
     // Получить значение счетчика событий
     public static Integer getCounterEvents() {
@@ -41,6 +40,38 @@ public class EventsSteps {
         return cards.size();
     }
 
+    // Клик по кнопке Upcoming Events
+    public static void clickUpcomingEventsBtn() {
+        eventsPage = new EventsPage(driver, wait);
+        eventsPage.upcomingEventsBtn();
+    }
+
+    // Клик по кнопке Past Events
+    public static void clickPastEventsBtn() {
+        eventsPage = new EventsPage(driver, wait);
+        eventsPage.pastEventsBtn();
+    }
+
+    // Добавить фильтр по локации
+    public static void addFilterLocation(String location) {
+        eventsPage = new EventsPage(driver, wait);
+        eventsPage
+                .locationBtn()
+                .checkboxLocation(location);
+    }
+
+    // Клик по первой карточке события
+    public static void clickEventCard() {
+        eventsPage = new EventsPage(driver, wait);
+        try {
+            eventsPage.eventCard();
+        } catch (TimeoutException ex) {
+            logger.error("Не удалось открыть карточку события, message: {}", ex);
+            Assert.fail(ex.getMessage());
+        }
+
+    }
+
     // Проверить счетчик событий с кол-вом карточек событий
     public static void assertCounterEventsAndCountCards() {
         int countEvents = EventsSteps.getCounterEvents();
@@ -54,17 +85,18 @@ public class EventsSteps {
         }
     }
 
-    // клик по кнопке Upcoming Events
-    public static void clickUpcomingEventsBtn() {
-        upcomingEventsBtn.click();
-        wait.until(ExpectedConditions.visibilityOf(titleNextWeek));
+    // Проверить счетчик прошедших событий с кол-вом карточек событий
+    public static void assertCounterPastEventsAndCountCards() {
+        int countEvents = EventsSteps.getCounterPastEvents();
+        int countCardsEvents = EventsSteps.getSizeCardsEvents();
+        try {
+            Assert.assertEquals(countEvents, countCardsEvents);
+        } catch (AssertionError ex) {
+            logger.error("Счетчик событий не соответствует кол-ву карточек событий. Счетчик = {}, Карточки = {}", countEvents, countCardsEvents);
+            logger.error(ex.getMessage());
+            Assert.fail();
+        }
     }
-
-    // клик по кнопке Past Events
-    public static void clickPastEventsBtn() {
-        pastEventsBtn.click();
-    }
-
 
     // проверка наличия местопроведения в карточке события
     public static void assertLocationEvent() {
@@ -153,35 +185,11 @@ public class EventsSteps {
             Date datePars = WorkWithDate.stringToDate(dateStr);
             if(datePars.before(new Date())) {
                 logger.error("Дата события {} находится в прошлом", dateStr);
-                Assert.fail();
+                Assert.fail("Дата события находится в прошлом " + dateStr);
             } else if(datePars.after(WorkWithDate.stringToDate(WorkWithDate.getDateBeforeOneWeek()))) {
-                logger.error("Дата события {} находится на 7 дней позже текущей даты", dateStr);
-                Assert.fail();
+                logger.error("Дата события {} находится более чем на 7 дней позже текущей даты", dateStr);
+                Assert.fail("Дата события находится более чем на 7 дней позже текущей даты " + dateStr);
             }
-        }
-    }
-
-    // клик по кнопке LocationBtn
-    public static void clickLocationBtn() {
-        locationBtn.click();
-    }
-
-    // клик по чекбоксу в фильтрах Location
-    public static void clickCheckboxLocation(String location) {
-        driver.findElement(By.xpath("//label[contains(text(), '" + location + "')]")).click();
-        wait.until(ExpectedConditions.visibilityOf(titleSearchFilter));
-    }
-
-    // Проверить счетчик прошедших событий с кол-вом карточек событий
-    public static void assertCounterPastEventsAndCountCards() {
-        int countEvents = EventsSteps.getCounterPastEvents();
-        int countCardsEvents = EventsSteps.getSizeCardsEvents();
-        try {
-            Assert.assertEquals(countEvents, countCardsEvents);
-        } catch (AssertionError ex) {
-            logger.error("Счетчик событий не соответствует кол-ву карточек событий. Счетчик = {}, Карточки = {}", countEvents, countCardsEvents);
-            logger.error(ex.getMessage());
-            Assert.fail();
         }
     }
 
@@ -194,10 +202,10 @@ public class EventsSteps {
             Date datePars = WorkWithDate.stringToDate(dateStr);
             if(datePars.after(new Date())) {
                 logger.error("Дата события {} находится в будущем", dateStr);
-                Assert.fail();
-            } else if(datePars.equals(WorkWithDate.stringToDate(WorkWithDate.getDateBeforeOneWeek()))) {
+                Assert.fail("Дата события находится в будущем " + dateStr);
+            } else if(datePars.equals(new Date())) {
                 logger.error("Дата события {} находится в настоящем", dateStr);
-                Assert.fail();
+                Assert.fail("Дата события находится в настоящем " + dateStr);
             }
         }
     }
