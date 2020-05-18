@@ -90,6 +90,7 @@ public class EventsSteps {
         int countCardsEvents = EventsSteps.getSizeCardsEvents();
         try {
             Assert.assertEquals(countEvents, countCardsEvents);
+            logger.debug("Счетчик событий соответствует кол-ву карточек событий. Счетчик = {}, Карточки = {}", countEvents, countCardsEvents);
         } catch (AssertionError ex) {
             logger.error("Счетчик событий не соответствует кол-ву карточек событий. Счетчик = {}, Карточки = {}", countEvents, countCardsEvents);
             logger.error(ex.getMessage());
@@ -103,6 +104,7 @@ public class EventsSteps {
         int countCardsEvents = EventsSteps.getSizeCardsEvents();
         try {
             Assert.assertEquals(countEvents, countCardsEvents);
+            logger.debug("Счетчик событий не соответствует кол-ву карточек событий. Счетчик = {}, Карточки = {}", countEvents, countCardsEvents);
         } catch (AssertionError ex) {
             logger.error("Счетчик событий не соответствует кол-ву карточек событий. Счетчик = {}, Карточки = {}", countEvents, countCardsEvents);
             logger.error(ex.getMessage());

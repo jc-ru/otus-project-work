@@ -7,6 +7,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.edge.EdgeOptions;
 import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.ie.InternetExplorerOptions;
 import org.openqa.selenium.opera.OperaOptions;
@@ -44,6 +45,10 @@ public class DriversManager {
             case "opera":
                 WebDriverManager.operadriver().setup();
                 driver = WebDriverPool.DEFAULT.getDriver(new OperaOptions());
+                break;
+            case "edge":
+                WebDriverManager.edgedriver().setup();
+                driver = WebDriverPool.DEFAULT.getDriver(new EdgeOptions());
                 break;
             default:
                 WebDriverManager.chromedriver().setup();
