@@ -5,6 +5,8 @@ import com.epam.events.pages.events.CardEventPage;
 import com.epam.events.pages.events.EventsPage;
 import com.epam.events.pages.main.MainPage;
 import com.epam.events.pages.main.sections.NavigateSection;
+import com.epam.events.pages.talks.CardTalkPage;
+import com.epam.events.pages.talks.TalksLibraryPage;
 import org.aeonbits.owner.ConfigFactory;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -24,6 +26,8 @@ public class BaseConfigurationTest {
     public static NavigateSection navigateSection;
     public static EventsPage eventsPage;
     public static CardEventPage cardEventPage;
+    public static TalksLibraryPage talksLibraryPage;
+    public static CardTalkPage cardTalkPage;
 
     @BeforeSuite
     public void setupSuite() {
@@ -34,6 +38,8 @@ public class BaseConfigurationTest {
         navigateSection = new NavigateSection(driver, wait);
         eventsPage = new EventsPage(driver, wait);
         cardEventPage = new CardEventPage(driver, wait);
+        talksLibraryPage = new TalksLibraryPage(driver, wait);
+        cardTalkPage = new CardTalkPage(driver, wait);
 
     }
 

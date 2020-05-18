@@ -24,7 +24,6 @@ public class MainPage {
     // url галвной страницы
     public MainPage open() {
         driver.get(cfg.getBaseUriProperties());
-
         PageFactory.initElements(driver, this);
         return this;
     }

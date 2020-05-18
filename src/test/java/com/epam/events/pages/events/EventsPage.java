@@ -17,7 +17,7 @@ import java.util.List;
 public class EventsPage {
 
     public static ServerConfig cfg = ConfigFactory.create(ServerConfig.class);
-    final public static Logger logger = LogManager.getLogger(EventsPage.class);
+    final private static Logger logger = LogManager.getLogger(EventsPage.class);
 
     WebDriver driver;
     WebDriverWait wait;

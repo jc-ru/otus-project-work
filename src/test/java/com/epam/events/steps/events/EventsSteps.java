@@ -2,7 +2,7 @@ package com.epam.events.steps.events;
 
 import com.epam.events.pages.events.EventsPage;
 import com.epam.events.utils.DriversManager;
-import com.epam.helpers.WorkWithDate;
+import com.epam.events.helpers.WorkWithDate;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.TimeoutException;
@@ -66,7 +66,7 @@ public class EventsSteps {
         try {
             eventsPage.eventCard();
         } catch (TimeoutException ex) {
-            logger.error("Не удалось открыть карточку события, message: {}", ex);
+            logger.error("Не удалось открыть карточку события");
             Assert.fail(ex.getMessage());
         }
 
