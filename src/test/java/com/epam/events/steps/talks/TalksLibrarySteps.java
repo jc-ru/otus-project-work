@@ -1,6 +1,8 @@
 package com.epam.events.steps.talks;
 
 import com.epam.events.helpers.WorkWithDate;
+import com.epam.events.pages.main.MainPage;
+import com.epam.events.pages.main.sections.NavigateSection;
 import com.epam.events.pages.talks.TalksLibraryPage;
 import com.epam.events.steps.events.EventsSteps;
 import com.epam.events.utils.DriversManager;
@@ -25,6 +27,8 @@ public class TalksLibrarySteps {
     private static WebDriver driver = DriversManager.getDriver();
     private static WebDriverWait wait = DriversManager.getDriverWait();
     private static TalksLibraryPage talksLibraryPage;
+    private static MainPage mainPage;
+    private static NavigateSection navigateSection;
     public static ArrayList<String> cardsTalksLinks = new ArrayList<>();
 
     // переменные для фильтров
@@ -34,6 +38,13 @@ public class TalksLibrarySteps {
     public static String keyword;
 
 
+    //Переход в раздел TalksLibrary из под главной страницы
+    public static void openTalksLibraryPage() {
+        mainPage = new MainPage(driver, wait);
+        mainPage.open();
+        navigateSection = new NavigateSection(driver, wait);
+        navigateSection.clickTalksLibraryBtn();
+    }
 
     // Добавить фильтры
     public static void addFilters(String category, String location, String lang) {
@@ -120,7 +131,7 @@ public class TalksLibrarySteps {
 
                 // Проверка ключевого слова в загаловке
                 try {
-                    WebElement title = driver.findElement(By.xpath("//h1[contains(@class, 'evnt-talk-title') and contains(text(), '" + keyword + "')]"));
+                    WebElement title = driver.findElement(By.xpath("//h1[contains(text(), '" + keyword + "')]"));
                     logger.debug("Присутствует ключевое слово в загаловке события с текстом: {}", keyword);
                 } catch (NoSuchElementException e) {
                     logger.debug("Категория (ключевое слово) с текстом: {} - отсутствует в загаловке события", keyword);

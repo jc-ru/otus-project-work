@@ -1,27 +1,26 @@
 package com.epam.events.tests;
 
-import com.epam.events.steps.talks.TalksLibrarySteps;
 import com.epam.events.utils.BaseConfigurationTest;
 import org.testng.annotations.Test;
+
+import static com.epam.events.steps.talks.TalksLibrarySteps.*;
 
 public class TalksLibrary extends BaseConfigurationTest {
 
     @Test
     public static void filteringReportsByCategory() {
-        mainPage.open();
-        navigateSection.clickTalksLibraryBtn();
-        TalksLibrarySteps.addFilters("Design", "Belarus", "ENGLISH");
-        TalksLibrarySteps.getAllUrlsCardsTalks();
-        TalksLibrarySteps.assertOpenAllCardsTalksAndChecksData();
+        openTalksLibraryPage();
+        addFilters("Design", "Belarus", "ENGLISH");
+        getAllUrlsCardsTalks();
+        assertOpenAllCardsTalksAndChecksData();
     }
 
     @Test
-    public static void searchForReportsByKeyword() throws InterruptedException {
-        mainPage.open();
-        navigateSection.clickTalksLibraryBtn();
-        TalksLibrarySteps.sendSearch("Azure");
-        TalksLibrarySteps.getAllUrlsCardsTalks();
-        TalksLibrarySteps.assertKeywordInTalks();
+    public static void searchForReportsByKeyword() {
+        openTalksLibraryPage();
+        sendSearch("Azure");
+        getAllUrlsCardsTalks();
+        assertKeywordInTalks();
     }
 
 }

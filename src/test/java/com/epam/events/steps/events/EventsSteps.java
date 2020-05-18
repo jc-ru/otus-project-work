@@ -1,6 +1,8 @@
 package com.epam.events.steps.events;
 
 import com.epam.events.pages.events.EventsPage;
+import com.epam.events.pages.main.MainPage;
+import com.epam.events.pages.main.sections.NavigateSection;
 import com.epam.events.utils.DriversManager;
 import com.epam.events.helpers.WorkWithDate;
 import org.apache.logging.log4j.LogManager;
@@ -23,6 +25,8 @@ public class EventsSteps {
     private static WebDriver driver = DriversManager.getDriver();
     private static WebDriverWait wait = DriversManager.getDriverWait();
     private static EventsPage eventsPage;
+    private static MainPage mainPage;
+    private static NavigateSection navigateSection;
 
     // Получить значение счетчика событий
     public static Integer getCounterEvents() {
@@ -38,6 +42,14 @@ public class EventsSteps {
     public static Integer getSizeCardsEvents() {
         List<WebElement> cards = cardsEvents;
         return cards.size();
+    }
+
+    // Открыть Events из под главной страницы
+    public static void openEventsPage(){
+        mainPage = new MainPage(driver, wait);
+        mainPage.open();
+        navigateSection = new NavigateSection(driver, wait);
+        navigateSection.clickEventsBtn();
     }
 
     // Клик по кнопке Upcoming Events
