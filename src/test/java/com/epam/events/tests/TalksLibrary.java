@@ -1,26 +1,26 @@
 package com.epam.events.tests;
 
+import com.epam.events.steps.talks.TalksLibrarySteps;
 import com.epam.events.utils.BaseConfigurationTest;
 import org.testng.annotations.Test;
 
-import static com.epam.events.steps.talks.TalksLibrarySteps.*;
-
 public class TalksLibrary extends BaseConfigurationTest {
+    TalksLibrarySteps talksLibrarySteps = new TalksLibrarySteps();
 
     @Test
-    public static void filteringReportsByCategory() {
-        openTalksLibraryPage();
-        addFilters("Design", "Belarus", "ENGLISH");
-        getAllUrlsCardsTalks();
-        assertOpenAllCardsTalksAndChecksData();
+    void filteringReportsByCategory() {
+        talksLibrarySteps.openTalksLibraryPage();
+        talksLibrarySteps.addFilters("Design", "Belarus", "ENGLISH");
+        talksLibrarySteps.getAllUrlsCardsTalks();
+        talksLibrarySteps.assertOpenAllCardsTalksAndChecksData();
     }
 
     @Test
-    public static void searchForReportsByKeyword() {
-        openTalksLibraryPage();
-        sendSearch("Azure");
-        getAllUrlsCardsTalks();
-        assertKeywordInTalks();
+    void searchForReportsByKeyword() {
+        talksLibrarySteps.openTalksLibraryPage();
+        talksLibrarySteps.sendSearch("Azure");
+        talksLibrarySteps.getAllUrlsCardsTalks();
+        talksLibrarySteps.assertKeywordInTalks();
     }
 
 }

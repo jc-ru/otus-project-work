@@ -1,58 +1,58 @@
 package com.epam.events.tests;
 
+import com.epam.events.steps.events.EventCardSteps;
+import com.epam.events.steps.events.EventsSteps;
 import com.epam.events.utils.BaseConfigurationTest;
 import org.testng.annotations.Test;
 
-import static com.epam.events.steps.events.EventCardSteps.*;
-import static com.epam.events.steps.events.EventsSteps.*;
-
 
 public class Events extends BaseConfigurationTest {
-
+    EventCardSteps eventCardSteps = new EventCardSteps();
+    EventsSteps eventsSteps = new EventsSteps();
 
     @Test
-    public static void viewUpcomingEvents() {
-        openEventsPage();
-        assertCounterEventsAndCountCards();
+    void viewUpcomingEvents() {
+        eventsSteps.openEventsPage();
+        eventsSteps.assertCounterEventsAndCountCards();
     }
 
     @Test
-    public static void viewEventCards() {
-        openEventsPage();
-        clickUpcomingEventsBtn();
-        assertLocationEvent();
-        assertLanguageEvent();
-        assertNameEvent();
-        assertDateEvent();
-        assertRegistrationEvent();
-        assertSpeakerEvent();
+    void viewEventCards() {
+        eventsSteps.openEventsPage();
+        eventsSteps.clickUpcomingEventsBtn();
+        eventsSteps.assertLocationEvent();
+        eventsSteps.assertLanguageEvent();
+        eventsSteps.assertNameEvent();
+        eventsSteps.assertDateEvent();
+        eventsSteps.assertRegistrationEvent();
+        eventsSteps.assertSpeakerEvent();
     }
 
     @Test
-    public static void eventsDateValidation() {
-        openEventsPage();
-        clickUpcomingEventsBtn();
-        assertNotPastDateEvent();
+    void eventsDateValidation() {
+        eventsSteps.openEventsPage();
+        eventsSteps.clickUpcomingEventsBtn();
+        eventsSteps.assertNotPastDateEvent();
     }
 
     @Test
-    public static void viewPastEventsInCanada() {
-        openEventsPage();
-        clickPastEventsBtn();
-        addFilterLocation("Canada");
-        assertCounterPastEventsAndCountCards();
-        assertPastDateEvent();
+    void viewPastEventsInCanada() {
+        eventsSteps.openEventsPage();
+        eventsSteps.clickPastEventsBtn();
+        eventsSteps.addFilterLocation("Canada");
+        eventsSteps.assertCounterPastEventsAndCountCards();
+        eventsSteps.assertPastDateEvent();
     }
 
     @Test
-    public static void viewEventDetails() {
-        openEventsPage();
-        clickUpcomingEventsBtn();
-        clickEventCard();
-        assertRegBtnEventCardPage();
-        assertDateEventCardPage();
-        assertLocationEventCardPage();
-        assertNameEventCardPage();
+    void viewEventDetails() {
+        eventsSteps.openEventsPage();
+        eventsSteps.clickUpcomingEventsBtn();
+        eventsSteps.clickEventCard();
+        eventCardSteps.assertRegBtnEventCardPage();
+        eventCardSteps.assertDateEventCardPage();
+        eventCardSteps.assertLocationEventCardPage();
+        eventCardSteps.assertNameEventCardPage();
     }
 
 

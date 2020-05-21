@@ -3,7 +3,6 @@ package com.epam.events.steps.events;
 import com.epam.events.utils.DriversManager;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -16,11 +15,11 @@ import static com.epam.events.pages.events.CardEventPage.*;
 
 public class EventCardSteps {
     final private static Logger logger = LogManager.getLogger(EventCardSteps.class);
-    private static WebDriver driver = DriversManager.getDriver();
+    private WebDriver driver = DriversManager.getDriver();
     private static WebDriverWait wait = DriversManager.getDriverWait();
 
     // проверка на наличие кнопки на регистрацию события
-    public static void assertRegBtnEventCardPage() {
+    public void assertRegBtnEventCardPage() {
         try {
             WebElement regBtn = regEventBtn;
             logger.debug("Элемент кнопки регистрации на событие - обнаружен");
@@ -32,7 +31,7 @@ public class EventCardSteps {
     }
 
     // проверка на наличие наимнования события
-    public static void assertNameEventCardPage() {
+    public void assertNameEventCardPage() {
         String nameEventText;
         try {
             nameEventText = nameEvent.getText();
@@ -45,7 +44,7 @@ public class EventCardSteps {
     }
 
     // проверка наличия местопроведения в карточке события
-    public static void assertLocationEventCardPage() {
+    public void assertLocationEventCardPage() {
         String locationText;
         try {
             locationText = locationEvent2.getText();
@@ -58,7 +57,7 @@ public class EventCardSteps {
     }
 
     // проверка на наличие даты события
-    public static void assertDateEventCardPage() {
+    public void assertDateEventCardPage() {
         String dateEvent;
         try {
             dateEvent = dateEvent2.getText();

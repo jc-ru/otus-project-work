@@ -45,7 +45,7 @@ public class EventsSteps {
     }
 
     // Открыть Events из под главной страницы
-    public static void openEventsPage(){
+    public void openEventsPage(){
         mainPage = new MainPage(driver, wait);
         mainPage.open();
         navigateSection = new NavigateSection(driver, wait);
@@ -53,19 +53,19 @@ public class EventsSteps {
     }
 
     // Клик по кнопке Upcoming Events
-    public static void clickUpcomingEventsBtn() {
+    public void clickUpcomingEventsBtn() {
         eventsPage = new EventsPage(driver, wait);
         eventsPage.upcomingEventsBtn();
     }
 
     // Клик по кнопке Past Events
-    public static void clickPastEventsBtn() {
+    public void clickPastEventsBtn() {
         eventsPage = new EventsPage(driver, wait);
         eventsPage.pastEventsBtn();
     }
 
     // Добавить фильтр по локации
-    public static void addFilterLocation(String location) {
+    public void addFilterLocation(String location) {
         eventsPage = new EventsPage(driver, wait);
         eventsPage
                 .locationBtn()
@@ -73,7 +73,7 @@ public class EventsSteps {
     }
 
     // Клик по первой карточке события
-    public static void clickEventCard() {
+    public void clickEventCard() {
         eventsPage = new EventsPage(driver, wait);
         try {
             eventsPage.eventCard();
@@ -85,7 +85,7 @@ public class EventsSteps {
     }
 
     // Проверить счетчик событий с кол-вом карточек событий
-    public static void assertCounterEventsAndCountCards() {
+    public void assertCounterEventsAndCountCards() {
         int countEvents = EventsSteps.getCounterEvents();
         int countCardsEvents = EventsSteps.getSizeCardsEvents();
         try {
@@ -99,7 +99,7 @@ public class EventsSteps {
     }
 
     // Проверить счетчик прошедших событий с кол-вом карточек событий
-    public static void assertCounterPastEventsAndCountCards() {
+    public void assertCounterPastEventsAndCountCards() {
         int countEvents = EventsSteps.getCounterPastEvents();
         int countCardsEvents = EventsSteps.getSizeCardsEvents();
         try {
@@ -113,7 +113,7 @@ public class EventsSteps {
     }
 
     // проверка наличия местопроведения в карточке события
-    public static void assertLocationEvent() {
+    public void assertLocationEvent() {
         String locationText;
         try {
             locationText = locationEvent.getText();
@@ -126,7 +126,7 @@ public class EventsSteps {
     }
 
     //  проверка наличия языка в карточке события
-    public static void assertLanguageEvent() {
+    public void assertLanguageEvent() {
         String langText;
         try {
             langText = langEvent.getText();
@@ -139,7 +139,7 @@ public class EventsSteps {
     }
 
     // проверка на наличие наимнования события
-    public static void assertNameEvent() {
+    public void assertNameEvent() {
         String nameEventText;
         try {
             nameEventText = nameEvent.getText();
@@ -152,7 +152,7 @@ public class EventsSteps {
     }
 
     // проверка на наличие даты события
-    public static void assertDateEvent() {
+    public void assertDateEvent() {
         String dateEventText;
         try {
             dateEventText = dateEvent.getText();
@@ -165,7 +165,7 @@ public class EventsSteps {
     }
 
     // проверка на наличие типа регистрации события
-    public static void assertRegistrationEvent() {
+    public void assertRegistrationEvent() {
         String regEventText;
         try {
             regEventText = regEvent.getText();
@@ -178,7 +178,7 @@ public class EventsSteps {
     }
 
     // проверка на наличие спикера события
-    public static void assertSpeakerEvent() {
+    public void assertSpeakerEvent() {
         WebElement avatarSpeaker;
         try {
             avatarSpeaker = speakerEvent;
@@ -191,7 +191,7 @@ public class EventsSteps {
     }
 
     // Проверка всех дат событий, на актуальность даты (не в прошлом и не на 7 дней больше от текущей даты)
-    public static void assertNotPastDateEvent() {
+    public void assertNotPastDateEvent() {
         List<WebElement> cards = datesEvents;
         for (int counter = 0; counter < cards.size(); counter++) {
             String dateStr = cards.get(counter).getText();
@@ -208,7 +208,7 @@ public class EventsSteps {
     }
 
     // Проверка всех дат событий, что они в прошедшем времени
-    public static void assertPastDateEvent() {
+    public void assertPastDateEvent() {
         List<WebElement> cards = allDatesEvents;
         for (int counter = 0; counter < cards.size(); counter++) {
             String dateStr = cards.get(counter).getText();

@@ -39,7 +39,7 @@ public class TalksLibrarySteps {
 
 
     //Переход в раздел TalksLibrary из под главной страницы
-    public static void openTalksLibraryPage() {
+    public void openTalksLibraryPage() {
         mainPage = new MainPage(driver, wait);
         mainPage.open();
         navigateSection = new NavigateSection(driver, wait);
@@ -47,7 +47,7 @@ public class TalksLibrarySteps {
     }
 
     // Добавить фильтры
-    public static void addFilters(String category, String location, String lang) {
+    public void addFilters(String category, String location, String lang) {
         categoryFilter = category;
         locationFilter = location;
         langFilter = lang;
@@ -64,7 +64,7 @@ public class TalksLibrarySteps {
     }
 
     // Получить все ссылки на страницы событий
-    public static void getAllUrlsCardsTalks() {
+    public void getAllUrlsCardsTalks() {
         List<WebElement> cardsTalks = talksCards;
         for (int counter = 0; counter < cardsTalks.size(); counter++) {
             String cardTalkLink = cardsTalks.get(counter).getAttribute("href");
@@ -75,7 +75,7 @@ public class TalksLibrarySteps {
     }
 
     // Открыть каждое событие и проверить данные
-    public static void assertOpenAllCardsTalksAndChecksData() {
+    public void assertOpenAllCardsTalksAndChecksData() {
         for (int counter = 0; counter < cardsTalksLinks.size(); counter++) {
             driver.get(cardsTalksLinks.get(counter));
 
@@ -110,14 +110,14 @@ public class TalksLibrarySteps {
     }
 
     // Ввод ключевого слова в поисковую строку
-    public static void sendSearch(String text) {
+    public void sendSearch(String text) {
         keyword = text;
         talksLibraryPage = new TalksLibraryPage(driver, wait);
         talksLibraryPage.searchInput(text);
     }
 
     // Открыть каждое событие и проверить ключевое слово в хэш-тегах
-    public static void assertKeywordInTalks() {
+    public void assertKeywordInTalks() {
 
         for (int counter = 0; counter < cardsTalksLinks.size(); counter++) {
             driver.get(cardsTalksLinks.get(counter));
